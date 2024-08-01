@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tareas</title>
+  </head>
+  <body>
+    <h1>{{ objeto.nombreP }}</h1>
+    <h3>Listado de Tareas</h3>
+    <ul>
+      {% for tarea in objeto.tareas.all %}
+        <li>
+          <h2>
+            {% if tarea.done == False %}
+               🕔
+            {% else %}
+              ✅
+            {% endif %}{{ tarea.nombreT }}
+          </h2>
+
+          <form action="{% url 'actualizar_tarea' tarea.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">✅ Done</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
